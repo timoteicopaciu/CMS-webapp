@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="innerContainer">
+  <img src="assets/fullLogo.png" class="bigLogo"><br>
+  <input id ="usernameInput" type="text" placeholder="Username" #userInput/>
+  <br>
+  <input id = "passwordInput" type="password" value = "" #passInput placeholder="Password"><br>
+  <button (click)="login(userInput.value,passInput.value); userInput.value = ''; passInput.value = '';">Login!</button>
+
+  </div>
+</div>

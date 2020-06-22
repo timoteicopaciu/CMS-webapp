@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+  margin:0px;
+}
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+button {
+  box-shadow:inset 0px 1px 0px 0px #54a3f7;
+  background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
+  background-color:#007dc1;
+  border-radius:3px;
+  border:1px solid #124d77;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-size:13px;
+  padding:6px 24px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #154682;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+button:hover {
+  background:linear-gradient(to bottom, #0061a7 5%, #007dc1 100%);
+  background-color:#0061a7;
+}
+button:active {
+  position:relative;
+  top:1px;
+}
+input[type="text"] {
+  width : 300px;
+  margin: 5px;
+  margin-left: 0px;
+  height: 20px;
+  padding: 5px;
+  border-radius: 5px;
+}
+hr {
+  border: 0px;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}

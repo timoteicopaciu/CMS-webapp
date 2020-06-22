@@ -1,0 +1,140 @@
+<div *ngIf="proposal">
+  <div class="proposal">
+  <h2> Proposal {{proposal.name}} DETAILS:</h2>
+  <hr>
+  <b>Status:</b><br/>
+  <p>{{proposal.status}}</p>
+  <b>Keywords:</b><br>
+  <p>{{proposal.keywords}}</p>
+
+  <b>Topics:</b><br>
+  <p>{{proposal.topics}}</p>
+  <hr>
+  <b>Authors:</b><br>
+  <ol *ngIf="authorsForProposal !== null">
+    <li *ngFor="let author of authorsForProposal">
+      <p>{{author.name}}</p>
+    </li>
+  </ol>
+
+  <hr>
+
+  <button *ngIf="user !== null && (user.isChair || user.isCoChair) && currentDate > conference.biddingDeadline" (click)="showList()">
+    Assign reviewers
+  </button>
+  <button *ngIf="user !== null && (user.isChair || user.isCoChair) && currentDate > conference.biddingDeadline" (click)="wantToSeReviewers = true">
+    Show reviewers
+  </button>
+  <button *ngIf="user !== null && (user.isChair || user.isCoChair) && currentDate > conference.biddingDeadline" (click)="chairToViewReviews = true">
+    Show reviews
+  </button>
+
+  <button *ngIf="user != null && canDoBidding(proposal.id)" (click)="bidProposal(proposal, true)">Accept Proposal</button>
+  <button *ngIf="user != null && canDoBidding(proposal.id)" (click)="bidProposal(proposal, false)">Refuse Proposal</button>
+  <button *ngIf="user && authorCanSeeReviews()" (click)="authorToViewReviews = true">See reviews</button>
+  <button *ngIf="user !== null && reviewersForProposal !== null && userInReviewers(user.id) === true" (click)="showForReview = true">Review</button>
+  <button (click)="goBack()">Go Back</button>
+  <br>
+  <div class="DownloadButtons" *ngIf="user !== null">
+    <div *ngIf="proposal.abstractPaperURL !== ''">
+      <a [href]="abstractUrl" download="Go">
+        <button class="abstract-button">
+          Download abstract paper
+        </button>
+      </a>
+    </div>
+    <div *ngIf="proposal.fullPaperURL !== ''">
+      <a [href]="fullUrl" download="Go">
+        <button class="abstract-button">
+          Download full paper
+        </button>
+      </a>
+    </div>
+    <div *ngIf="proposal.presentationURL !== ''">
+      <a [href]="presentationURL" download="Go">
+        <button class="abstract-button">
+          Download presentation
+        </button>
+      </a>
+    </div>
+  </div>
+  </div>
+  <!--  Assign reviewers  -->
+  <div id = "assignReviewers" *ngIf="user !== null && usersToReview !== null && reviewersForProposal !== null">
+    <p> You have to select {{conference.level - reviewersForProposal.length}} more reviewers!</p>
+    <ul *ngIf="conference.level - reviewersForProposal.length > 0">
+      <li *ngFor="let user of usersToReview">
+        {{user.name}}
+        {{user.emailAddress}}
+        {{user.affiliation}}
+        {{user.personalWebsite}}
+        <button (click)="setAsReviewer(user)" >Set as reviewer</button>
+      </li>
+    </ul>
+  </div>
+
+  <!--  See existent reviewers  -->
+  <div id = "showExistentReviewers" *ngIf="user !== null && reviewersForProposal !== null && wantToSeReviewers">
+    <h4>Reviewers</h4>
+    <ul>
+      <li *ngFor="let user of reviewersForProposal">
+        {{user.name}}
+        {{user.emailAddress}}
+        {{user.affiliation}}
+        {{user.personalWebsite}}
+      </li>
+    </ul>
+  </div>
+
+  <!--<button *ngIf="user && authorCanSeeReviews()" (click)="authorToViewReviews = true">See reviews</button>
+  <button (click)="goBack()">Go Back</button>-->
+  <!--  See existent reviewers as chair  -->
+
+  <div *ngIf="user !== null &&  (reviewsByAllUsers && chairToViewReviews) || authorToViewReviews">
+    <ul class="review-list">
+      <li  *ngFor="let reviewOthers of reviewsByAllUsers" style="list-style-type: none">
+        <div class="review" >
+          <h4>-Review Of {{reviewOthers.user.name}}:</h4>
+          <b>Qualifier: </b><br/>{{reviewOthers.qualifier}}<br/><br/>
+          <b>Recommendation: </b><br/>{{reviewOthers.recommendation}}<br/>
+        </div>
+      </li>
+    </ul>
+    <button *ngIf="proposal.status === 'Undecided'" (click)="updateStatusByChair('Accepted')">Accept</button>
+    <button *ngIf="proposal.status === 'Undecided'" (click)="updateStatusByChair('Rejected')">Refuse</button>
+    <button *ngIf="proposal.status === 'Undecided'" (click)="resetProposalReviews()">Rediscuss Papers</button>
+  </div>
+
+ <!-- <button *ngIf="user !== null && reviewersForProposal !== null && userInReviewers(user.id) === true" (click)="showForReview = true">Review</button>-->
+  <div *ngIf="showForReview">
+    <div *ngIf="review !== null && review.qualifier === ''">
+      <label><b>Qualifier:</b>
+        <input type="radio" value="Strong Accept" [(ngModel)]="qualifier">Strong Accept
+        <input type="radio" value="Accept" [(ngModel)]="qualifier">Accept
+        <input type="radio" value="Weak Accept" [(ngModel)]="qualifier">Weak Accept
+        <input type="radio" value="Borderline Paper" [(ngModel)]="qualifier">Borderline Paper
+        <input type="radio" value="Weak Reject" [(ngModel)]="qualifier">Weak Reject
+        <input type="radio" value="Reject" [(ngModel)]="qualifier">Reject
+        <input type="radio" value="Strong Reject" [(ngModel)]="qualifier">Strong Reject
+      </label><br/><br/>
+    </div>
+    <label><b>Recommendation: </b><br/>
+      <textarea rows="6" cols="40" #recommendation [value]="review.recommendation"></textarea>
+    </label><br/>
+    <button (click)="reviewProposal(recommendation.value)">Submit Review</button>
+  </div>
+  <div *ngIf="user !== null && review !== null && review.qualifier !== '' && review.recommendation !== '' && reviewsByAllUsers">
+    <ul class="review-list">
+      <li  *ngFor="let reviewOthers of reviewsByAllUsers" style="list-style-type: none">
+        <div class="review" >
+          <h4 *ngIf="reviewOthers.user.id !== user.id">-Review Of {{reviewOthers.user.name}}:</h4>
+          <h4 *ngIf="reviewOthers.user.id === user.id">-My Review:</h4><br/>
+          <b>Qualifier: </b><br/>{{reviewOthers.qualifier}}<br/><br/>
+          <b>Recommendation: </b><br/><p>{{reviewOthers.recommendation}}</p><br/>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <br>
+
+</div>

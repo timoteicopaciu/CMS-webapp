@@ -1,0 +1,22 @@
+
+<div class="container">
+  <img src="assets/fullLogo.png" class="bigLogo"><br>
+  <br>
+  <input type="text" placeholder="Name" #name/>
+  <br>
+  <br>
+  <input type="text" placeholder="Username" #userInput/>
+  <br>
+  <br>
+  <input type="text" placeholder="Email" #email/>
+  <br>
+  <br>
+  <input type="text" placeholder="Affiliation" #affiliation/>
+  <br>
+  <br>
+  <input type="password" #passInput placeholder="Password">
+  <br>
+  <br>
+
+  <button (click)="register(name.value, userInput.value,passInput.value, email.value, affiliation.value)">Register!</button>
+</div>

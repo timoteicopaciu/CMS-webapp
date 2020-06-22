@@ -1,0 +1,20 @@
+<h1>
+  Conferences:
+</h1>
+
+<div class="container">
+
+    <div class="conference" *ngFor="let conference of conferences ">
+        <div class="conferenceName">
+          <h5 class="conferenceNameH">{{conference.name}}</h5>
+        </div>
+        <p>Starting date:</p>
+        {{conference.startDate | date:'dd-MM-yyyy'}}
+
+        <div class="details">
+          <button (click)="goToConferenceDetails(conference)">Show Details</button>
+        </div>
+    </div>
+
+</div>
+

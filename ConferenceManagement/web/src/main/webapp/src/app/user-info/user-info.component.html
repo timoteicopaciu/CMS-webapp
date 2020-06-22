@@ -1,0 +1,24 @@
+<h2>Your personal info</h2>
+<h4>Name:</h4> {{user.name}}
+<h4>Username:</h4> {{user.username}}
+<h4>Email:</h4> {{user.emailAddress}}
+<h4>Affiliation:</h4> {{user.affiliation}}
+
+<div *ngIf="user.isSCMember">
+  <h4>Personal website:</h4> {{user.personalWebsite}}
+  <h3 *ngIf="user.isChair">Your are Chair!</h3>
+  <h3 *ngIf="user.isCoChair">Your are CoChair!</h3>
+</div>
+
+<div *ngIf="user.personalWebsite !== null && isPCMemberInSomeConference === 'true'">
+  <h4>Personal website:</h4> {{user.personalWebsite}}
+</div>
+
+<div *ngIf="user.personalWebsite === null && isPCMemberInSomeConference === 'true'">
+  <input type="text" placeholder="Personal website" #personalWebsite>
+  <br>
+  <br>
+  <button (click)="updateInfoForPCMember(personalWebsite.value)">Update Data</button>
+</div>
+<br>
+<button (click)="goBack()">Back</button>

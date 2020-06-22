@@ -1,0 +1,21 @@
+
+<div class="menu">
+  <a routerLink="">
+    <img src="assets/smallLogo.png" class="logoFull">
+  </a>
+
+  <div class="menuItems">
+    <p *ngIf="user"> Logged as {{user.name}}</p>
+    <a *ngIf="user === null" routerLink="help">Help</a>
+    <a routerLink="user-info" *ngIf="user">Your info</a>
+    <a routerLink="assign-cochair" *ngIf="user !== null && (user.isChair || user.isCoChair)">Assign CoChairs</a>
+    <a routerLink="conference-new" *ngIf="user !== null && (user.isChair || user.isCoChair)">Add Conference</a>
+    <a routerLink="conference-list-page">View Conferences</a>
+    <a routerLink="register-page" *ngIf="user === null">Register</a>
+    <a routerLink="login-page" *ngIf="user === null">Login</a>
+    <a routerLink="" *ngIf="user !== null" (click)="logout()">Logout</a>
+  </div>
+</div>
+<div class="container">
+<router-outlet></router-outlet>
+</div>

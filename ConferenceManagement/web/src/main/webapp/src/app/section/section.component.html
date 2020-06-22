@@ -1,0 +1,28 @@
+
+<h2 *ngIf="section">Section {{section.name}} Proposals To Be Presented:</h2>
+
+<div class="proposal" *ngFor="let proposalToPresent of proposalsToBePresented">
+  <div class="proposalName">
+    <h2>Proposal {{proposalToPresent.name}} </h2>
+  </div>
+  <hr>
+  <div class="middleDiv">
+    <b>Keywords:</b> <br/>{{proposalToPresent.keywords}}
+    <br><br>
+    <b>Topics:</b><br/> {{proposalToPresent.topics}}
+  </div>
+  <hr>
+</div>
+<button *ngIf="user !== null && isChairOrCoChair() && wantToAssignProposals === false" (click)="wantToAssignProposals = true">Assign Proposals</button>
+<div *ngIf="wantToAssignProposals">
+  <ul>
+    <li *ngFor="let proposalToAssign of proposalsToBeAssigned">
+      {{proposalToAssign.name}}
+      {{proposalToAssign.keywords}}
+      <button (click)="assignProposal(proposalToAssign)">Assign Proposal To Section</button>
+    </li>
+  </ul>
+  <button (click)="assignAllProposals()">Assign All</button>
+</div>
+<button *ngIf="user != null && ( alreadyParticipated !== null && alreadyParticipated !== true)" (click)="participateInSection()">Participate</button>
+<button (click)="goBack()">Back</button>

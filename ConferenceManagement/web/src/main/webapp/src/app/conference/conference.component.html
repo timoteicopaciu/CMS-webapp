@@ -1,0 +1,45 @@
+<div class="container" *ngIf="conference">
+  <h1>Conference {{conference.name}} Details:</h1>
+  <hr>
+  <br>
+  <div>
+    {{conference.callForPapers}}
+    <br/>
+    <br/>
+    <label>Start Date: </label>{{conference.startDate | date:'MM/dd/yyyy'}}
+    <label>
+      <input type="date" *ngIf="user !== null && isChairOrCoChair()" value="{{conference.startDate | date:'yyyy-MM-dd'}}" id="startDate">
+    </label><br/>
+    <label>End Date: </label>{{conference.endDate | date:'MM/dd/yyyy'}}
+    <input type="date" *ngIf="user !== null && isChairOrCoChair()" value="{{conference.endDate | date:'yyyy-MM-dd'}}" id="endDate"><br/>
+    <label> Bidding deadline: </label>{{conference.biddingDeadline | date:'MM/dd/yyyy'}}
+    <label>
+      <input type="date" *ngIf="user !== null && isChairOrCoChair()" value="{{conference.biddingDeadline | date:'yyyy-MM-dd'}}" id="biddingDeadline">
+    </label><br/>
+    <label>Abstract Paper Deadline: </label>{{conference.abstractPaperDeadline | date:'MM/dd/yyyy'}}
+    <input type="date" *ngIf="user !== null && isChairOrCoChair()" value="{{conference.abstractPaperDeadline | date:'yyyy-MM-dd'}}" id="abstractDeadline"><br/>
+    <label>Full Paper Deadline: </label>{{conference.fullPaperDeadline | date:'MM/dd/yyyy'}}
+    <input type="date" *ngIf="user !== null && isChairOrCoChair()" value="{{conference.fullPaperDeadline | date:'yyyy-MM-dd'}}" id="fullDeadline"><br/>
+  </div>
+  <hr>
+  <button (click)="goBack()">Back</button>
+  <button *ngIf="user !== null && isChairOrCoChair()" (click)="updateConference()">Update Deadlines</button>
+  <button (click)="goToProposals()">See Proposals</button>
+  <button *ngIf="user !== null && !isChairOrCoChair()"
+          (click)="goToCreateProposal()">Create Proposal</button>
+  <button *ngIf="user !== null && isChairOrCoChair()" (click)="getAllUsers()">Assign PC Members</button>
+  <button (click)="goToSections()">View Sections</button>
+  <button *ngIf="user !== null && isChairOrCoChair()" (click)="goToCreateSection()">Create Sections</button>
+
+  <div *ngIf="user !== null && isChairOrCoChair() && users !== null">
+    <ul>
+      <li *ngFor="let user of users">
+        {{user.name}}
+        {{user.emailAddress}}
+        {{user.affiliation}}
+        {{user.personalWebsite}}
+        <button (click)="allowAsPCMember(user)" >Allow As PC Member</button>
+      </li>
+    </ul>
+  </div>
+</div>

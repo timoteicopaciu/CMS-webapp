@@ -1,0 +1,35 @@
+input[type="date"] {
+  margin: 5px;
+  margin-left: 0px;
+  width : 300px;
+  height: 20px;
+  padding: 5px;
+  border-radius: 5px;
+}
+input[type="text"] {
+  width : 300px;
+  margin: 5px;
+  margin-left: 0px;
+  height: 20px;
+  padding: 5px;
+  border-radius: 5px;
+}
+textarea {
+  width: 400px;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  border-top-color: black;
+  border-left-color: black;
+  border-width: 2px;
+  margin-left: 0px;
+  height: 200px;
+}
+.container{
+  display: flex;
+  justify-content: space-evenly;
+}
+header {
+  text-align: center;
+}
+

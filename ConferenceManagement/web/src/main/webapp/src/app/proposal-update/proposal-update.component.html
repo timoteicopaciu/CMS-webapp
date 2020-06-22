@@ -1,0 +1,66 @@
+<div class="container" *ngIf="proposal">
+  <h1>Proposal {{proposal.name}} Details:</h1>
+  <hr>
+  <br>
+  <div>
+    <label>Name: </label>
+    <input type="text" [(ngModel)]="proposal.name"><br/>
+
+    <label>Keywords: </label>
+    <input type="text" [(ngModel)]="proposal.keywords"><br/>
+
+    <label>Topics: </label><br/>
+    <textarea rows="8" cols="50" [(ngModel)]="proposal.topics"></textarea><br/>
+    <button *ngIf="wantToAddAuthor === false && proposal" (click)="wantToAddAuthor = true">Want to add author</button>
+    <div *ngIf="wantToAddAuthor">
+      Please add your colleagues email addresses, you are author by default!
+      <br>
+      Author email: <input type="text" #emailAddress/>
+      <button (click)="addAuthor(emailAddress.value)">Add author</button>
+    </div>
+  </div>
+
+  <!-- Upload abstract file -->
+  <div *ngIf="user !== null">
+    <div *ngIf="currentDate < conference.abstractPaperDeadline">
+      <button (click)="uploadAbstractButtonPressed()" class="abstract-button" color="primary">
+        Upload Abstract
+      </button>
+      <label>{{abstractFileName}}</label>
+      <input #abstractPaperUpload accept="application/pdf" id="abstractPaperUpload" multiple="multiple"
+             name="abstractPaperUpload"
+             style="display:none;" type="file"/>
+    </div>
+
+  </div>
+
+  <!-- Upload full file -->
+  <div *ngIf="user !== null">
+    <div *ngIf="currentDate < conference.fullPaperDeadline">
+      <button (click)="uploadFullButtonPressed()" class="abstract-button" color="primary">
+        Upload Full Paper
+      </button>
+      <label>{{fullFileName}}</label>
+      <input #fullPaperUpload accept="application/pdf" id="fullPaperUpload" multiple="multiple"
+             name="fullPaperUpload"
+             style="display:none;" type="file"/>
+    </div>
+  </div>
+
+  <!-- Upload presentation file -->
+  <div *ngIf="user !== null">
+    <div *ngIf="proposal && proposal.status === 'Accepted'">
+      <button (click)="uploadPresentationButtonPressed()" class="presentation-button" color="primary">
+        Upload Presentation
+      </button>
+      <label>{{presentationFileName}}</label>
+      <input #presentationUpload accept="application/pdf" id="presentationUpload" multiple="multiple"
+             name="presentationUpload"
+             style="display:none;" type="file"/>
+    </div>
+  </div>
+
+  <hr>
+  <button (click)="updateProposal()">Update</button>
+  <button (click)="goBack()">Back</button>
+</div>

@@ -1,0 +1,40 @@
+<header>
+<h2>Add a new conference</h2>
+</header>
+  <div class="container">
+  <div>
+
+  *Name:<br/><input type="text" placeholder="Name" #name/>
+
+  <br/><br/>
+
+  Start Date:<br/><input type="date" #startDate/>
+  <br/>
+  <br/>
+  End Date:<br/><input type="date" #endDate/>
+  <br/>
+  <br/>
+  Bidding Deadline:<br/><input type="date" #bidding/>
+  <br/>
+  <br/>
+  Abstract Paper Deadline:<br/><input type="date" #abstract/>
+  <br/>
+  <br/>
+  Full Paper Deadline:<br/><input type="date" #fullPaper/>
+  <br/>
+  <br/>
+
+  <button (click)="addConference(name.value, callForPapers.value, startDate.value, endDate.value, bidding.value, abstract.value, fullPaper.value)">SAVE</button>
+  <button (click)="goBack()">Back</button>
+  </div>
+  <div>
+    *Call for Papers:<br/>
+    <textarea #callForPapers rows="10" placeholder="CallForPapers" cols="50"></textarea>
+    <br/><br/>
+    <label><b>Level:</b>
+      <input type="radio" value="2" [(ngModel)]="level">2 Reviewers
+      <input type="radio" value="3" [(ngModel)]="level">3 Reviewers
+      <input type="radio" value="4" [(ngModel)]="level">4 Reviewers
+    </label><br/><br/>
+  </div>
+</div>

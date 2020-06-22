@@ -1,0 +1,34 @@
+.bigLogo
+{
+  width: 400px;
+}
+.register{
+  margin:5px;
+}
+
+input
+{
+  border-radius: 15px;
+  padding: 8px;
+  margin: 10px;
+}
+
+input:focus
+{
+  outline: none;
+}
+
+.container{
+  padding: 10px;
+  height: auto;
+  background-color: lightgray;
+  width:auto;
+  text-align: center;
+  margin-top:15%;
+
+}
+.innerContainer{
+}
+button{
+  border-radius: 10px;
+}

@@ -1,0 +1,25 @@
+input {
+  width : 300px;
+  margin: 10px;
+  height: 20px;
+  padding: 5px;
+  border-radius: 5px;
+}
+textarea {
+  width: 300px;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border-top-color: black;
+  border-left-color: black;
+  border-width: 2px;
+}
+.container {
+  padding: 10px;
+}
+nav {
+  margin: 10px;
+}
+.title {
+  margin-left: 10px;
+}

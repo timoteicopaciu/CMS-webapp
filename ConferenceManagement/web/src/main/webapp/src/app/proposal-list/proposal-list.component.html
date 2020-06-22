@@ -1,0 +1,27 @@
+<h1>
+  Proposals:
+</h1>
+
+<div class="container">
+  <br>
+  <button (click)="goBack()">Back</button>
+  <div class="proposal" *ngFor="let proposal of proposals ">
+    <div class="proposalName">
+     <h2>Proposal {{proposal.name}} </h2>
+      Status: {{proposal.status}}
+    </div>
+    <hr>
+    <div class="middleDiv">
+      <b>Keywords:</b> <br/>{{proposal.keywords}}
+    <br><br>
+      <b>Topics:</b><br/> {{proposal.topics}}
+    </div>
+    <hr>
+    <div class="buttonsDiv">
+      <button (click)="goToDetails(proposal.id)">View Proposal</button>
+      <button *ngIf="user != null && writtenProposals.indexOf(proposal.id) !== -1" (click)="goToUpdateProposal(proposal.id)">Update</button>
+    </div>
+    <br>
+  </div>
+
+</div>

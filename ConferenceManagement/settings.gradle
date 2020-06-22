@@ -1,0 +1,4 @@
+rootProject.name = 'ConferenceManagement'
+include 'core'
+include 'web'
+

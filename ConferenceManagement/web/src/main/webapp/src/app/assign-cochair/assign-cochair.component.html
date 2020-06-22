@@ -1,0 +1,16 @@
+<h2>Assign CoChairs</h2>
+
+<ul *ngIf="received && CoChairs.length < 2">
+  <li *ngFor="let user of CoChairsCandidates">
+    <b>Name: </b> {{user.name}}
+    <button (click)="assignAsCoChair(user)">Assign</button>
+  </li>
+</ul>
+<p *ngIf="received && CoChairs.length >= 2"><b>There are already 2 CoChairs</b></p>
+
+<h2>CoChairs</h2>
+<ul>
+  <li *ngFor="let user of CoChairs">
+    <b>Name: </b> {{user.name}}
+  </li>
+</ul>

@@ -1,0 +1,21 @@
+<div class="container">
+<h2 class="title">Add a new proposal</h2>
+
+<input type="text"  placeholder="Name" #name/>
+<br/>
+<input type="text" placeholder="Keywords" #keywords/>
+<br/>
+<textarea rows="8" cols="40" placeholder="Topics" #topics></textarea>
+<br/>
+<div *ngIf="wantToAddAuthor">
+  Please add your colleagues email addresses, you are author by default!
+  <br>
+  Author email: <input type="text" #emailAddress/>
+  <button (click)="addAuthor(emailAddress.value)">Add author</button>
+</div>
+<nav>
+  <button *ngIf="wantToAddAuthor === false && proposal" (click)="wantToAddAuthor = true">Want to add author</button>
+  <button *ngIf="!proposal" (click)="addProposal(name.value, keywords.value, topics.value)">Add Proposal</button>
+  <button (click)="goBack()">Back</button>
+</nav>
+</div>
